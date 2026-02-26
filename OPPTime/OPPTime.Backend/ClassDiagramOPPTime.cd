@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="OPPTime.Backend.Time">
-    <Position X="5" Y="1.25" Width="1.5" />
+    <Position X="5.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAACQAAAAQAAAAAAEAAAAAAAAEAABAACAAAA=</HashCode>
+      <HashCode>AAIACAAAAgCEACAEAAAiAAIEAAAIACIAAAAAAAAAAgI=</HashCode>
       <FileName>Time.cs</FileName>
     </TypeIdentifier>
   </Class>

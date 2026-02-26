@@ -2,22 +2,23 @@
 
 public class Time
 {
-//Fields
-private int _hour;
-private int _minute;
-private int _second;
-private int _millisecond;
+    //Fields
+    private int _hour;
+    private int _minute;
+    private int _second;
+    private int _millisecond;
 
-//Constructors
-public Time()
+
+    //Constructor
+    public Time()
     {
-        _hour = 0; 
+        Hour = 0;
         _minute = 0;
         _second = 0;
         _millisecond = 0;
     }
 
-public Time(int hour);
+    public Time(int hour)
     {
         Hour = hour;
         _minute = 0;
@@ -25,52 +26,50 @@ public Time(int hour);
         _millisecond = 0;
     }
 
-public Time(int hour, int minute);
+    public Time(int hour, int minute)
     {
-         Hour = hour;
-         Minute = minute;
-         _second = 0;
-         _millisecond = 0;
+        Hour = hour;
+        Minute = minute;
+        _second = 0;
+        _millisecond = 0;
     }
 
-
-public Time(int hour, int minute, int second);
+    public Time(int hour, int minute, int second)
     {
-         Hour = hour;
-         Minute = minute;
-         Second = second;
-         _millisecond = 0;
+        Hour = hour;
+        Minute = minute;
+        Second = second;
+        _millisecond = 0;
     }
 
-public Time(int hour, int minute, int second, int millisecond);
+    public Time(int hour, int minute, int second, int millisecond)
     {
-         Hour = hour;
-         Minute = minute;
-         Second = second;
-         Millisecond = millisecond;
+        Hour = hour;
+        Minute = minute;
+        Second = second;
+        Millisecond = millisecond;
     }
 
-
-//Properties
-public int Hour(int hour)
+    //Properties
+    public int Hour
     {
-        get => _hour;
-        set => _hour = ValidateHour(value); 
+        get => Hour;
+        set => Hour = ValidateHour(value);
     }
 
-public int Minute
+    public int Minute
     {
         get => _minute;
-        set => _minute = ValidateMinute(value);    
+        set => _minute = ValidateMinute(value);
     }
 
-public int Second
+    public int Second
     {
         get => _second;
-        set => _second = ValidateSecond(value); 
+        set => _second = ValidateSecond(value);
     }
 
-public int Milliseconds
+    public int Millisecond
     {
         get => _millisecond;
         set => _millisecond = ValidateMillisecond(value);
@@ -79,20 +78,82 @@ public int Milliseconds
 
 
 //Methods
-private int ValidateHour(int hour);
-{
-    if(hour < 0 || hour > 23)
-    {
-        throw new ArgumentOutOfRangeException(nameof(hour),"Hour must be between 0 and 23.");
-    }
-    return hour;
-}
 
-private int ValidateMinute(int minute);
-{
-    if(minute < 0 || minute > 59 )
+    public override string ToString()
     {
-        throw new ArgumentOutOfRangeException(nameof(minute), "Minute must be between 0 and 59.");
+        string tt = Hour < 12 ? "AM" : "PM";
+        int displayHour = Hour % 12;
+        if (displayHour == 0) displayHour = 12;
+
+        return $"{displayHour:D2}:{_minute:D2}:{_second:D2}.{_millisecond:D3} {tt}";
     }
-    return minute();
+
+    public long ToMilliseconds()
+    {
+        return ((long)Hour * 3_600_000)
+             + ((long)_minute * 60_000)
+             + ((long)_second * 1_000)
+             + _millisecond;
+    }
+
+    public double ToSeconds() => ToMilliseconds() / 1_000.0;
+
+    public double ToMinutes() => ToMilliseconds() / 60_000.0;
+
+    public bool IsOtherDay(Time other)
+    {
+        return this.ToMilliseconds() + other.ToMilliseconds() >= 86_400_000;
+    }
+
+    public Time Add(Time other)
+    {
+        long total = (this.ToMilliseconds() + other.ToMilliseconds()) % 86_400_000;
+
+        int ms = (int)(total % 1_000); total /= 1_000;
+        int sec = (int)(total % 60); total /= 60;
+        int min = (int)(total % 60); total /= 60;
+        int hr = (int)(total % 24);
+
+        return new Time(hr, min, sec, ms);
+    }
+
+
+    //Validations
+    private int ValidateHour(int hour)
+    {
+        if (hour < 0 || hour > 23)
+        {
+            throw new ArgumentOutOfRangeException(nameof(hour), "Hour must be between 0 and 23.");
+        }
+        return hour;
+    }
+
+    private int ValidateMinute(int minute)
+    {
+        if (minute < 0 || minute > 59)
+        {
+            throw new ArgumentOutOfRangeException(nameof(minute), "Minute must be between 0 and 59.");
+        }
+        return minute;
+    }
+
+    private int ValidateSecond(int second)
+    {
+        if (second < 0 || second > 59)
+        {
+            throw new ArgumentOutOfRangeException(nameof(second), "Second must be between 0 and 59.");
+        }
+        return second;
+    }
+
+    private int ValidateMillisecond(int millisecond)
+    {
+        if (millisecond < 0 || millisecond > 999)
+        {
+            throw new ArgumentOutOfRangeException(nameof(millisecond), "Millisecond must be between 0 and 999.");
+        }
+        return millisecond;
+    }
+
+
 }
