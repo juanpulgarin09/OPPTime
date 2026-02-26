@@ -12,7 +12,7 @@ public class Time
     //Constructor
     public Time()
     {
-        Hour = 0;
+        _hour = 0;
         _minute = 0;
         _second = 0;
         _millisecond = 0;
@@ -53,8 +53,8 @@ public class Time
     //Properties
     public int Hour
     {
-        get => Hour;
-        set => Hour = ValidateHour(value);
+        get => _hour;
+        set => _hour = ValidateHour(value);
     }
 
     public int Minute
@@ -154,6 +154,5 @@ public class Time
         }
         return millisecond;
     }
-
 
 }
