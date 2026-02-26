@@ -123,7 +123,7 @@ public class Time
     {
         if (hour < 0 || hour > 23)
         {
-            throw new ArgumentOutOfRangeException(nameof(hour), "Hour must be between 0 and 23.");
+            throw new ArgumentOutOfRangeException(nameof(hour), "The hour: , is not valid.");
         }
         return hour;
     }
@@ -132,7 +132,7 @@ public class Time
     {
         if (minute < 0 || minute > 59)
         {
-            throw new ArgumentOutOfRangeException(nameof(minute), "Minute must be between 0 and 59.");
+            throw new ArgumentOutOfRangeException(nameof(minute), "The minute: {hour}, is not valid.");
         }
         return minute;
     }
@@ -141,7 +141,7 @@ public class Time
     {
         if (second < 0 || second > 59)
         {
-            throw new ArgumentOutOfRangeException(nameof(second), "Second must be between 0 and 59.");
+            throw new ArgumentOutOfRangeException(nameof(second), "The second: , is not valid.");
         }
         return second;
     }
@@ -150,7 +150,7 @@ public class Time
     {
         if (millisecond < 0 || millisecond > 999)
         {
-            throw new ArgumentOutOfRangeException(nameof(millisecond), "Millisecond must be between 0 and 999.");
+            throw new ArgumentOutOfRangeException(nameof(millisecond), "The millisecond: , is not valid.");
         }
         return millisecond;
     }
